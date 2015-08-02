@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta content="IE=edge" http-equiv="X-UA-Compatible"></meta>
+		<meta content="width=device-width, initial-scale=1" name="viewport"></meta>
+		<title>dostep demo</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+		<style type="text/css">
+			.dostep {
+				display: flex;
+				flex-direction: row;
+				border: 1px solid #CCC;
+				width: 100%;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.dostep__control {
+				display: block;
+				padding: 3px 10px;
+				background-color: #F3F3F3;
+			}
+
+			.dostep__control:hover, .dostep__control:active, .dostep__control:focus {
+				text-decoration: none;
+			}
+
+			.dostep__control--less {
+				border-right: 1px solid #CCC;
+			}
+
+			.dostep__control--more {
+				border-left: 1px solid #CCC;
+			}
+		</style>
+	</head>
+	<body>
+		<main class="container">
+			<form action="demo.html" method="post">
+				<div class="row">
+					<div class="col-sm-6">
+						<p>
+							<label for="passengers">Number of passengers</label>
+						</p>
+						<p>
+							<select id="passengers" name="passengers">
+								<option value="1">1 passenger</option>
+								<option value="2">2 passengers</option>
+								<option value="3">3 passengers</option>
+								<option value="4">4 passengers</option>
+								<option value="5">5 passengers</option>
+								<option value="6">6 passengers</option>
+							</select>
+						</p>
+					</div>
+
+					<div class="col-sm-6">
+						<p>
+							<label for="passengers">Passenger class</label>
+						</p>
+						<p>
+							<select id="passenger-class" name="passenger-class">
+								<option value="economy">Economy</option>
+								<option value="plus">Economy Plus</option>
+								<option value="business">Businesss</option>
+								<option value="first">First</option>
+							</select>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<input class="btn btn-default" type="submit" value="Submit form" /> check your network inspector to see the form data
+					</div>
+				</div>
+			</form>
+		</main>
+		<script src="dostep.js"></script>
+		<script>
+			var stepper = new Dostep(document.getElementById('passengers'));
+			var stepper = new Dostep(document.getElementById('passenger-class'));
+		</script>
+	</body>
+</html>
