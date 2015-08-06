@@ -5,6 +5,11 @@
 			selectedValue = options[selectElm.selectedIndex].text,
 			stepper = setup();
 
+		if (stepper === false) {
+			return;
+		}
+
+
 		// React when clicking on - or +
 		stepper.less.addEventListener('click', function(e) {
 			e.preventDefault();
@@ -33,6 +38,11 @@
 		}
 
 		function setup() {
+			// Stop setting up if already set up
+			if (selectElm.classList.contains('js-dostep--applied')) {
+				return false;
+			}
+
 			// Merge default settings with provided settings
 			var defaults = JSON.parse(JSON.stringify(defaultSettings));
 			for (var property in settings) {
@@ -43,6 +53,7 @@
 			settings = defaults;
 
 			// Hide the original select element
+			selectElm.classList.add('js-dostep--applied');
 			selectElm.style.position = 'absolute';
 			selectElm.style.top = '-9999px';
 			selectElm.style.visibility = 'hidden';
