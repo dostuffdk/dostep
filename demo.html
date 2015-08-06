@@ -94,10 +94,16 @@
 					<p>
 						The stepper may be an improvement to select element with a small number of options.
 					</p>
-
 				</div>
 
 				<div class="col-sm-12">
+					<h2>Browser requirements</h2>
+					<p>
+						To be investigated further, but the CSS uses flexbox and I have plans
+						to add a mutation observer to watch for changes.<br />
+						So probably something like: IE11+, Edge, Firefox 28+, Chrome 29+, iOS Safari 7.1+, etc.
+					</p>
+
 					<h2>How to use it</h2>
 					<p>
 						You will need:
@@ -117,12 +123,12 @@
 					</ol>
 					<p>
 						Make a reference to your select element and create a stepper with the
-						reference as argument:
+						reference as argument and possibly a options object:
 					</p>
 					<pre>
 var mySelectElement = document.getElementById('my-select-element');
 
-var myStepper = new Dostep(mySelectElement);</pre>
+var myStepper = new Dostep(mySelectElement, options);</pre>
 					<p>
 						That's it.
 					</p>
@@ -135,6 +141,14 @@ var myStepper = new Dostep(mySelectElement);</pre>
 					<p>
 						Call <code>myStepper.destroy()</code> to take down the stepper
 						and revert to the original select element.
+					</p>
+
+					<h3>Options</h3>
+					<p>
+						You can provide an options object.
+					</p>
+					<p>
+						Not really implemented yet.
 					</p>
 
 				</div>
