@@ -4,55 +4,177 @@
 		<meta charset="utf-8">
 		<meta content="IE=edge" http-equiv="X-UA-Compatible"></meta>
 		<meta content="width=device-width, initial-scale=1" name="viewport"></meta>
-		<title>dostep demo</title>
+		<title>Dostep demo</title>
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="dostep.css" />
+		<link rel="stylesheet" href="demo.css" />
 	</head>
 	<body>
-		<main class="container">
-			<form action="demo.html" method="post">
-				<div class="row">
-					<div class="col-sm-6">
-						<p>
-							<label for="passengers">Number of passengers</label>
-						</p>
-						<p>
-							<select id="passengers" name="passengers">
-								<option value="1">1 passenger</option>
-								<option value="2">2 passengers</option>
-								<option value="3">3 passengers</option>
-								<option value="4">4 passengers</option>
-								<option value="5">5 passengers</option>
-								<option value="6">6 passengers</option>
-							</select>
-						</p>
-					</div>
+		<div class="container">
+			<h1>Dostep - a &lt;select&gt; replacement</h1>
+		</div>
 
-					<div class="col-sm-6">
-						<p>
-							<label for="passengers">Passenger class</label>
-						</p>
-						<p>
-							<select id="passenger-class" name="passenger-class">
-								<option value="economy">Economy</option>
-								<option value="plus">Economy Plus</option>
-								<option value="business">Businesss</option>
-								<option value="first">First</option>
-							</select>
-						</p>
-					</div>
-				</div>
+		<div class="demo">
+			<div class="container">
+				<h2>Demo</h2>
 				<div class="row">
-					<div class="col-sm-12">
-						<input class="btn btn-default" type="submit" value="Submit form" /> check your network inspector to see the form data
-					</div>
+					<form action="demo.html" method="post">
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<p>
+								<label for="passengers">Number of passengers</label>
+							</p>
+							<p>
+								<select id="passengers" class="form-control" name="passengers">
+									<option value="1">1 passenger</option>
+									<option value="2">2 passengers</option>
+									<option value="3">3 passengers</option>
+									<option value="4">4 passengers</option>
+									<option value="5">5 passengers</option>
+									<option value="6">6 passengers</option>
+								</select>
+							</p>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-4">
+							<p>
+								<label for="passengers">Passenger class</label>
+							</p>
+							<p>
+								<select id="passenger-class" class="form-control" name="passenger-class">
+									<option value="economy">Economy</option>
+									<option value="plus">Economy Plus</option>
+									<option value="business">Businesss</option>
+									<option value="first">First</option>
+								</select>
+							</p>
+						</div>
+						<div class="demo-applier col-xs-12 col-sm-12 col-md-4">
+							<p>
+								<label>&nbsp;</label
+							</p>
+							<p>
+								<button id="js-apply-stepper" class="wobble btn btn-primary">Try me!</button>
+							</p>
+						</div>
+					</form>
 				</div>
-			</form>
-		</main>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<h2>What?</h2>
+					<p>
+						Dostep replaces a &lt;select&gt; element with a so-called stepper.
+					</p>
+					<p>
+						A stepper element allows the user to cycle through the options (increase or decrease)
+						instead	of having a dropdown shown.
+					</p>
+					<p>
+						The original select element is not destroyed, but hidden away from the viewer.
+					</p>
+					<p>
+						Any change made to the stepper is automatically transferred to the original
+						select element (and vice versa) so that you need to do nothing extra
+						when submitting the form.
+					</p>
+				</div>
+				<div class="col-sm-6">
+					<h2>Why?</h2>
+					<p>
+						Select dropdowns <a href="http://www.lukew.com/ff/entry.asp?1950">can be tedious to operate</a>
+						on touch devices.
+					</p>
+					<p>
+						Especially on iPhone devices, the select dropdown has a horrible implementation,
+						taking up a lot of screen real estate and even reduces the viewport while shown
+						with unforeseen consequences (window resize event listeners?).
+					</p>
+					<p>
+						The stepper may be an improvement to select element with a small number of options.
+					</p>
+
+				</div>
+
+				<div class="col-sm-12">
+					<h2>How to use it</h2>
+					<p>
+						You will need:
+					</p>
+					<ol>
+						<li>
+							A select element
+						</li>
+						<li>
+							The dostep.js file referenced in your document<br />
+							<code>&lt;script src="/bower_components/dostep/dostep.js"&gt;</script></code>
+						</li>
+						<li>
+							The dostep.css file referenced in your document (or write your own)<br >
+							<code>&lt;link rel="stylesheet" href="/bower_components/dostep/dostep.css" /&gt;</code>
+						</li>
+					</ol>
+					<p>
+						Make a reference to your select element and create a stepper with the
+						reference as argument:
+					</p>
+					<pre>
+var mySelectElement = document.getElementById('my-select-element');
+
+var myStepper = new Dostep(mySelectElement);</pre>
+					<p>
+						That's it.
+					</p>
+					<h3>Methods on the steper</h3>
+
+					<h4>destroy()</h4>
+					<p>
+						NOT YET IMPLEMENTED
+					</p>
+					<p>
+						Call <code>myStepper.destroy()</code> to take down the stepper
+						and revert to the original select element.
+					</p>
+
+				</div>
+
+			</div>
+
+			<hr />
+
+			<p class="text-center">
+				2015 &mdash; Anders Mogensen &mdash; dostuff.dk
+			</p>
+
+		</div>
+
 		<script src="dostep.js"></script>
 		<script>
-			var stepper = new Dostep(document.getElementById('passengers'));
-			var stepper = new Dostep(document.getElementById('passenger-class'));
+			var applyBtn = document.getElementById('js-apply-stepper');
+				applied = false,
+				stepper1 = null,
+				stepper2 = null;
+
+			document.getElementById('js-apply-stepper').addEventListener('click', function(e) {
+				e.preventDefault();
+
+				applyBtn.classList.remove('wobble');
+				applyBtn.classList.toggle('btn-default');
+				applyBtn.classList.toggle('btn-primary');
+
+				if (!applied) {
+					stepper1 = new Dostep(document.getElementById('passengers'));
+					stepper2 = new Dostep(document.getElementById('passenger-class'));
+					applyBtn.innerHTML = 'Revert';
+				} else {
+					stepper1.destroy();
+					stepper2.destroy();
+					applyBtn.innerHTML = 'Try me!';
+				}
+
+				applied = !applied;
+			});
 		</script>
 	</body>
 </html>
