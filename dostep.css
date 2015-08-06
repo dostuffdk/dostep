@@ -5,12 +5,15 @@
 	width: 100%;
 	justify-content: space-between;
 	align-items: center;
+	background-color: white;
 }
 
 	.dostep__control {
 		display: block;
 		padding: 3px 10px;
 		background-color: #F3F3F3;
+		height: 100%;
+		/* TODO: make square no matter height */
 	}
 
 		.dostep__control:hover, .dostep__control:active, .dostep__control:focus {
