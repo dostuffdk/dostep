@@ -71,8 +71,7 @@
 					</p>
 					<p>
 						Any change made to the stepper is automatically transferred to the original
-						select element (and vice versa) so that you need to do nothing extra
-						when submitting your form.
+						select element so that you need to do nothing extra	when submitting your form.
 					</p>
 				</div>
 				<div class="col-sm-6">
@@ -91,12 +90,25 @@
 				</div>
 
 				<div class="col-sm-12">
+					<div class="alert alert-warning" role="alert">Not ready for public use.</div>
+				</div>
+
+				<div class="col-sm-12">
 					<h2>Browser requirements</h2>
 					<p>
 						To be investigated further, but the CSS uses flexbox and I have plans
 						to add a mutation observer to watch for changes.<br />
 						So probably something like: IE11+, Edge, Firefox 28+, Chrome 29+, iOS Safari 7.1+, etc.
 					</p>
+
+					<h2>TODO</h2>
+					<ul>
+						<li>Always square controls</li>
+						<li>Move hiding of original select elm to stylesheet</li>
+						<li>Listen for changes to the original element</li>
+						<li>Consistent naming: previous, next, less, more</li>
+						<li>Cleanup hell of this</li>
+					</ul>
 
 					<h2>How to use it</h2>
 					<p>
@@ -137,13 +149,22 @@ var myStepper = new Dostep(mySelectElement, options);</pre>
 						Whatever was selected in the stepper is also selected in the dropdown.
 					</p>
 
+					<h4>step(value)</h4>
+					<p>
+						Call <code>myStepper.step(value)</code> to make the stepper
+						step back or forward according to the provided value. Eg. -1 or 2.
+					</p>
+
 					<h3>Options</h3>
 					<p>
-						You can provide an options object.
+						You can provide an options object:
 					</p>
-					<p>
-						Not really implemented yet.
-					</p>
+					<pre>var myStepper = new Dostep(mySelectElement, {
+    elmClassName: 'dostep',                                 // class name(s) for the stepper container
+    lessClassName: 'dostep__control dostep__control--less', // class name(s) for control to previous
+    moreClassName: 'dostep__control dostep__control--more', // class name(s) for control to next
+    valueClassName: 'dostep__value'                         // class name(s) for value indicator
+});</pre>
 
 				</div>
 
