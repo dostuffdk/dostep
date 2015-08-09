@@ -1,12 +1,33 @@
 .demo {
-	margin: 20px 0;
 	background-color: #EEE;
-	padding-bottom: 20px;
+	padding: 20px 0;
+}
+
+.demo-lead {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0px;
+	font-size: 18px;
+	line-height: 1.42857;
+	vertical-align: middle;
+	border: 1px solid transparent;
+}
+
+.demo p {
+	margin: 0;
 }
 
 @media (max-width: 991px) {
 	.demo-applier {
 		text-align: center;
+		margin-bottom: 20px;
+	}
+}
+
+@media (min-width: 992px) {
+	.demo form {
+		display: flex;
+		align-items: center;
 	}
 }
 
