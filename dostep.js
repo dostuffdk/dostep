@@ -1,86 +1,87 @@
 (function() {
 	this.Dostep = function(selectElm, settings) {
-		var options = selectElm.options,
-			selectedOption = options[selectElm.selectedIndex].value,
-			selectedValue = options[selectElm.selectedIndex].text,
-			stepper = setup();
-
-		if (stepper === false) {
-			return;
+		// Stop if already set up
+		if (selectElm.classList.contains('js-dostep--applied')) {
+			return false;
 		}
 
+		// Merge settings
+		var defaults = JSON.parse(JSON.stringify(defaultSettings));
+		for (var property in settings) {
+			if (settings.hasOwnProperty(property)) {
+				defaults[property] = settings[property];
+			}
+		}
+		settings = defaults;
+
+		// Hide the original select element
+		selectElm.classList.add('js-dostep--applied');
+		// TODO: Move to css
+		selectElm.style.position = 'absolute';
+		selectElm.style.top = '-9999px';
+		selectElm.style.visibility = 'hidden';
+
+		// Create the stepper and insert into DOM
+		this.stepper = createStepper(settings);
+		selectElm.parentNode.insertBefore(this.stepper.container, selectElm.nextSibling);
+
+		// Information about selected value
+		this.selectElm = selectElm;
+		this.selectedOption = this.selectElm.options[selectElm.selectedIndex].value,
+		this.selectedValue = this.selectElm.options[selectElm.selectedIndex].text;
+
+		// Add selected option to stepper value
+		this.stepper.value.innerHTML = this.selectedValue;
 
 		// React when clicking on - or +
-		stepper.less.addEventListener('click', function(e) {
-			e.preventDefault();
-			step(-1);
-		});
-
-		stepper.more.addEventListener('click', function(e) {
-			e.preventDefault();
-			step(1);
-		});
+		this.prevHandler = this.prev.bind(this);
+		this.nextHandler = this.next.bind(this);
+		this.stepper.less.addEventListener('click', this.prevHandler);
+		this.stepper.more.addEventListener('click', this.nextHandler);
 
 		// TODO: React to changes in the original select element
+	};
 
-		function step(change) {
-			for (var i = 0; i < options.length; i++) {
-				if (selectedOption === options[i].value) {
-					if (options[i+change]) {
-						selectedOption = options[i+change].value;
-						selectedValue = options[i+change].text;
-						selectElm.value = selectedOption;
-						stepper.value.innerHTML = selectedValue;
-					}
-					return;
+	Dostep.prototype.step = function(change) {
+		for (var i = 0; i < this.selectElm.options.length; i++) {
+			if (this.selectedOption === this.selectElm.options[i].value) {
+				if (this.selectElm.options[i+change]) {
+					this.selectedOption = this.selectElm.options[i+change].value;
+					this.selectedValue = this.selectElm.options[i+change].text;
+					this.selectElm.value = this.selectedOption;
+					this.stepper.value.innerHTML = this.selectedValue;
 				}
+				return;
 			}
 		}
+	};
 
-		function setup() {
-			// Stop setting up if already set up
-			if (selectElm.classList.contains('js-dostep--applied')) {
-				return false;
-			}
+	Dostep.prototype.next = function(e) {
+		e.preventDefault();
+		this.step(1);
+	};
 
-			// Merge default settings with provided settings
-			var defaults = JSON.parse(JSON.stringify(defaultSettings));
-			for (var property in settings) {
-				if (settings.hasOwnProperty(property)) {
-					defaults[property] = settings[property];
-				}
-			}
-			settings = defaults;
-
-			// Hide the original select element
-			selectElm.classList.add('js-dostep--applied');
-			selectElm.style.position = 'absolute';
-			selectElm.style.top = '-9999px';
-			selectElm.style.visibility = 'hidden';
-
-			// Create the stepper and insert into DOM
-			var stepper = createStepper(settings);
-			selectElm.parentNode.insertBefore(stepper.container, selectElm.nextSibling);
-
-			// Add selected option to stepper value
-			stepper.value.innerHTML = selectedValue;
-
-			return stepper;
-		}
+	Dostep.prototype.prev = function(e) {
+		e.preventDefault();
+		this.step(-1);
 	};
 
 	Dostep.prototype.destroy = function() {
-		// TODO
-		// Reset the styling
 		// Cancel event listeners
-		// Delete the stepper element
+		this.stepper.less.removeEventListener('click', this.prevHandler);
+		this.stepper.more.removeEventListener('click', this.nextHandler);
+
+		// Remove the stepper element
+		this.stepper.container.parentElement.removeChild(this.stepper.container);
+
+		// Reset the styling of original select element
+		this.selectElm.classList.remove('js-dostep--applied');
+		this.selectElm.style.position = 'static';
+		this.selectElm.style.top = 'auto';
+		this.selectElm.style.visibility = 'visible';
 	};
 
-	Dostep.prototype.step = function(stepValue) {
-		// TODO
-	};
-
-	//// Private methods ////
+	//// Private stuff ////
 
 	var defaultSettings = {
 		elmClassName: 'dostep',
